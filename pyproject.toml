@@ -4,8 +4,9 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
+
 dependencies = [
-    "django>=4.2",
+    "django>=5.0,<6.0",
     "python-dotenv>=1.2.1",
     "sendgrid>=6.12.5",
 ]
