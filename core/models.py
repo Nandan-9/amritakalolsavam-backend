@@ -11,7 +11,7 @@ class User(AbstractUser):
         ('jyothirmati','JYOTHIRMAYI')
     ]
     roll_number = models.CharField(max_length=200,unique=True,null=False)
-    house = models.CharField(max_length=200,choices=HOUSE_CHOICE)
+    house = models.CharField(max_length=200,choices=HOUSE_CHOICE, default="Undefined")
 
     def __str__(self):
         return self.roll_number
