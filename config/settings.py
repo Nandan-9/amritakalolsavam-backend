@@ -14,6 +14,14 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
+DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
+
+IS_PROD = DJANGO_ENV == "production"
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +33,26 @@ SECRET_KEY = 'django-insecure-)2+n)-p!dcky(4e+rg1@xy*52c*4s+(tjxa4o5s!c5vxu))262
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.6']
+ALLOWED_HOSTS = [
+    "192.168.1.6",
+    "localhost",
+    "127.0.0.1",
+]
+
+
+CORS_ALLOWED_ORIGINS = [
+        "http://192.168.1.6:3000",
+
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+      "http://192.168.1.6:3000",
+
+    "http://localhost:3000",
+]
 
 
 # Application definition
@@ -37,6 +64,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+        "rest_framework",
+
         "corsheaders",
         "core",
         "events",
@@ -53,6 +82,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
 ]
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+}
 
 ROOT_URLCONF = 'config.urls'
 
@@ -121,3 +156,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# settings.py
+
+if IS_PROD:
+    # ===== Production (HTTPS) =====
+    SESSION_COOKIE_SAMESITE = "None"
+    SESSION_COOKIE_SECURE = True
+
+    CSRF_COOKIE_SAMESITE = "None"
+    CSRF_COOKIE_SECURE = True
+
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+else:
+    # ===== Development (HTTP) =====
+    SESSION_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_SECURE = False
+
+    CSRF_COOKIE_SAMESITE = "Lax"
+    CSRF_COOKIE_SECURE = False
