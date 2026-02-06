@@ -7,8 +7,8 @@ class User(AbstractUser):
     HOUSE_CHOICE = [
         ('amritamayi','AMRITAMAYI'),
         ('anandamayi','ANANDAMAYI'),
-        ('chinmati','CHINMAYI'),
-        ('jyothirmati','JYOTHIRMAYI')
+        ('chinmayi','CHINMAYI'),
+        ('jyothirmayi','JYOTHIRMAYI')
     ]
     roll_number = models.CharField(max_length=200,unique=True,null=False)
     house = models.CharField(max_length=200,choices=HOUSE_CHOICE, default="Undefined")

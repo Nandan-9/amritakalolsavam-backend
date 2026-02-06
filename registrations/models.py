@@ -5,6 +5,9 @@ from django.db import models
 from ..events.models import Event
 from ..core.models import User
 
+
+
+
 class GroupRegistration(models.Model):
     event = models.ForeignKey(
         Event,
@@ -29,3 +32,14 @@ class GroupRegistration(models.Model):
 
     def __str__(self):
         return f"{self.team_name} - {self.event}"
+
+
+
+
+class ChessNumber(models.Model):
+        event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+        related_name="event_chess_number"
+    )
+    
