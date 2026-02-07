@@ -1,14 +1,14 @@
 from django.db import models
 
 # Create your models here.
-
-from ..events.models import Event
-from ..core.models import User
-
-
+from django.contrib import admin
+from events.models import Event
+from core.models import User
 
 
-class GroupRegistration(models.Model):
+
+
+class EventRegistration(models.Model):
     event = models.ForeignKey(
         Event,
         on_delete=models.CASCADE,
@@ -20,7 +20,8 @@ class GroupRegistration(models.Model):
         related_name="group_registrations"
     )
     reg_time = models.DateTimeField(auto_now_add=True)
-    team_name = models.CharField(max_length=100, blank=True)
+    chest_number = models.CharField(max_length=10, unique=True)
+
 
     class Meta:
         constraints = [
@@ -30,16 +31,25 @@ class GroupRegistration(models.Model):
             )
         ]
 
-    def __str__(self):
-        return f"{self.team_name} - {self.event}"
-
-
-
-
-class ChessNumber(models.Model):
-        event = models.ForeignKey(
-        Event,
+class GroupParticipants(models.Model):
+    registration = models.ForeignKey(
+        EventRegistration,
         on_delete=models.CASCADE,
-        related_name="event_chess_number"
+        related_name="participants"
     )
-    
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="group_participants"
+    )
+
+
+USER_EVENT_LIMITS = {
+    ("ON", "SOLO"): 4,
+    ("ON", "GROUP"): 3,
+    ("OFF", "SOLO"): 4,
+}
+class GroupParticipantsInline(admin.TabularInline):
+    model = GroupParticipants
+    extra = 0
+    autocomplete_fields = ["user"]

@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import create_registrations
+from .views.home_view import EventRegistration
 
 urlpatterns = [
-    path("register/", create_registrations, name="create_registrations"),
+    path("", EventRegistration.as_view(), name="create_registrations"),
 
 ]
