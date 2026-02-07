@@ -1,17 +1,16 @@
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
+class UserDetails(APIView):
+    permission_classes = [IsAuthenticated]
 
-@login_required(login_url=None)
-def user_details(request):
-    user = request.user
-
-    return JsonResponse(
-        {
+    def get(self, request):
+        user = request.user
+        return Response({
             "name": user.username,
             "email": user.email,
             "roll_number": user.roll_number,
             "house": user.house,
-        },
-        status=200
-    )
+        },        status=200
+)
