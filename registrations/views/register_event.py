@@ -1,4 +1,4 @@
-from django.db import transaction
+from django.db import transaction,IntegrityError
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -17,49 +17,50 @@ class EventRegistrationView(APIView):
         event = get_object_or_404(Event, id=event_id)
         leader = request.user
         reg_type = request.data.get("type", "solo")
-        user_ids = request.data.get("user_ids", [])
+        roll_numbers = request.data.get("participants", [])
 
-        if reg_type == "group" and event.participation_mode != Event.GROUP:
-            return Response({"error": "This is not a group event"}, status=400)
+        if not can_user_register(leader,event) :
+            return  Response({"error": "User not able to make more registrations"}, status=400)
+        
+        # ---- validation ----
+        if reg_type == "group":
+            if event.participation_mode != Event.GROUP:
+                return Response({"error": "Not a group event"}, status=400)
 
-        if reg_type == "solo" and event.participation_mode != Event.SOLO:
-            return Response({"error": "This is not a solo event"}, status=400)
+            if not roll_numbers:
+                return Response({"error": "Participants required"}, status=400)
 
-        if not can_user_register(leader, event):
-            return Response(
-                {"error": "Registration limit reached"},
-                status=403
-            )
+            participants = []
+            for uid in roll_numbers:
+                user = get_user_by_id(uid)
+                if not user:
+                    return Response({"error": f"User {uid} not found"}, status=404)
+                participants.append(user)
 
-        with transaction.atomic():
-            registration = EventRegistration.objects.create(
-                event=event,
-                registered_by=leader,
-                chest_number=self.generate_chest_number(),
-            )
+        try:
+            with transaction.atomic():
+                registration = EventRegistration.objects.create(
+                    event=event,
+                    registered_by=leader,
+                    chest_number=self.generate_chest_number(),
+                )
 
-            if reg_type == "group":
-                if not user_ids:
-                    return Response(
-                        {"error": "Group participants required"},
-                        status=400
-                    )
-
-                for user_id in user_ids:
-                    participant = get_user_by_id(user_id)
-                    if not participant:
-                        return Response(
-                            {"error": f"User {user_id} not found"},
-                            status=404
+                if reg_type == "group":
+                    GroupParticipants.objects.bulk_create([
+                        GroupParticipants(
+                            registration=registration,
+                            user=p
                         )
-                    GroupParticipants.objects.create(
-                        registration=registration,
-                        user=participant
-                    )
-        return Response(
-            {"id": registration.id},
-            status=201
-        )
+                        for p in participants
+                    ])
+        except IntegrityError:
+            return Response(
+                {"error": "Already registered"},
+                status=409
+            )
+
+        return Response({"id": registration.id}, status=201)
+
 
     def generate_chest_number(self):
         last = EventRegistration.objects.order_by("-id").first()

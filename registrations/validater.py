@@ -15,7 +15,7 @@ def can_user_register(user, event):
         EventRegistration.objects
         .select_for_update()
         .filter(
-            user=user,
+            registered_by=user,
             event__stage_type=event.stage_type,
             event__participation_mode=event.participation_mode
         )
