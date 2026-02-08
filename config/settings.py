@@ -69,7 +69,8 @@ INSTALLED_APPS = [
         "corsheaders",
         "core",
         "events",
-        "registrations"
+        "registrations",
+        "students",
 ]
 
 MIDDLEWARE = [
