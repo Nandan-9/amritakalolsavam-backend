@@ -31,4 +31,4 @@ class Event(models.Model):
     max_participants = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f"{self.name} ({self.event_date})"
+        return self.name

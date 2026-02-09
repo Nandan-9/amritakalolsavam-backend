@@ -5,20 +5,26 @@ from django.db import IntegrityError, transaction
 from django.views.decorators.http import require_POST
 from django.contrib.auth import login
 from ..models import User
-
+from students.helpers.get_students import get_student_meta
 @csrf_exempt
 @require_POST
 def user_register(request):
     try:
         data = json.loads(request.body)
 
+        student = get_student_meta(data['roll_number'])
+        if not student:
+            return JsonResponse({
+                "error" : "User not found"
+            },status=404)
+
         with transaction.atomic():
             user = User.objects.create_user(
-                username=data['username'],
+                username=student['name'],
                 email=data['email'],
                 password=data['password'],
                 roll_number=data['roll_number'],
-                house=data.get('house')
+                house=student["house"]
             )
 
             login(request, user)

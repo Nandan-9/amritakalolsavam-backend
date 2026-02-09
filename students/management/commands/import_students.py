@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = "Import students from Excel file"
 
     def handle(self, *args, **kwargs):
-        df = pd.read_excel("/home/das/pro/amritakalolsavam-backend/2025ASE-ASC.xlsx")  # path to your file
+        df = pd.read_excel("/home/das/pro/amritakalolsavam-backend/students/data/2024-ASE-ASA.xlsx")  # path to your file
 
         for _, row in df.iterrows():
             Student.objects.update_or_create(
