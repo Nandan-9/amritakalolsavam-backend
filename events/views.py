@@ -15,6 +15,7 @@ def get_all_events(request):
         "id",
         "name",
         "description",
+        "stage_type",
         "event_date",
         "event_time",
         "venue",
