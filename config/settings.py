@@ -30,8 +30,11 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
 
 
 
-ALLOWED_HOSTS = ["65.2.97.207", "localhost", "127.0.0.1"]
-
+ALLOWED_HOSTS = [
+    "65.2.97.207",
+    "localhost",
+    "127.0.0.1",
+]
 
 CORS_ALLOWED_ORIGINS = [
         "http://192.168.1.6:3000",
@@ -42,11 +45,16 @@ CORS_ALLOWED_ORIGINS = [
 
 ]
 
-CORS_ALLOW_CREDENTIALS = True
-
 CSRF_TRUSTED_ORIGINS = [
     "http://65.2.97.207",
+    "http://localhost",
 ]
+
+
+
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 
 
