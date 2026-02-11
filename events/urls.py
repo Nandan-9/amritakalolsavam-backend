@@ -10,3 +10,4 @@ urlpatterns = [
 
 
 ]
+i have a fucntion

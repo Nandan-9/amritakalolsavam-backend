@@ -23,6 +23,7 @@ IS_PROD = DJANGO_ENV == "production"
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-dev-key")
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -32,7 +33,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-dev-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["65.2.97.207", "localhost", "127.0.0.1"]
 
 
 CORS_ALLOWED_ORIGINS = [
@@ -47,13 +48,9 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-      "http://192.168.1.6:3000",
-      "http://192.168.1.4:3000",
-        "http://10.197.179.48:3000",
-    "http://localhost:3000",
-    "http://10.113.21.130:3000",
-
+    "http://65.2.97.207",
 ]
+
 
 
 # Application definition
