@@ -13,22 +13,21 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
-
 IS_PROD = DJANGO_ENV == "production"
+
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-dev-key")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)2+n)-p!dcky(4e+rg1@xy*52c*4s+(tjxa4o5s!c5vxu))262'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,17 +35,21 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "192.168.1.6",
     "192.168.1.4",
+    "10.197.179.48",
     "localhost",
     "127.0.0.1",
+    "10.113.21.130",
+    "10.113.21.166",
 ]
 
 
 CORS_ALLOWED_ORIGINS = [
         "http://192.168.1.6:3000",
         "http://192.168.1.4:3000",
-
-
+        "http://10.197.179.48:3000",
     "http://localhost:3000",
+    "http://10.113.21.130:3000",
+
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -54,9 +57,10 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
       "http://192.168.1.6:3000",
       "http://192.168.1.4:3000",
-
-
+        "http://10.197.179.48:3000",
     "http://localhost:3000",
+    "http://10.113.21.130:3000",
+
 ]
 
 
@@ -76,6 +80,7 @@ INSTALLED_APPS = [
         "events",
         "registrations",
         "students",
+        "accounts",
 ]
 
 MIDDLEWARE = [
@@ -120,12 +125,25 @@ AUTH_USER_MODEL = 'core.User'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST", "db"),  # 👈 important
+        "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
+
+
 
 
 # Password validation
