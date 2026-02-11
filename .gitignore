@@ -23,10 +23,6 @@ local_settings.py
 db.sqlite3
 media/
 
-# Migrations (keep __init__.py)
-**/migrations/*
-!**/migrations/__init__.py
-
 # =========================
 # Environment variables
 # =========================
