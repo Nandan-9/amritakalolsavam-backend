@@ -7,7 +7,7 @@ from ..models import EventRegistration, GroupParticipants
 from events.models import Event
 from ..validater import can_user_register
 from core.helper.get_user_by_id import get_user_by_id
-
+from students.helpers.get_students import validate_same_house
 
 class EventRegistrationView(APIView):
     permission_classes = [IsAuthenticated]
@@ -32,9 +32,18 @@ class EventRegistrationView(APIView):
             participants = []
             for uid in roll_numbers:
                 user = get_user_by_id(uid)
+                if not can_user_register(user,event) :
+                    return  Response({"error": f"User:{uid} not able to make more registrations"}, status=400)
                 if not user:
                     return Response({"error": f"User {uid} not found"}, status=404)
                 participants.append(user)
+            if not validate_same_house(participants):
+                return Response(
+                    {"error": "All participants must belong to the same house"},
+                    status=400
+    )
+
+            
 
         try:
             with transaction.atomic():
