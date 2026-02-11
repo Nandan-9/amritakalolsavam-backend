@@ -4,6 +4,15 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
+    ROLE_CHOICES = [
+        ("registration", "Registration"),
+        ("admin", "Admin"),
+        ("judge", "Judge"),
+        ("certification", "Certification"),
+        ("student","Student"),
+    ]
+
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES,default="student",blank=False)
     HOUSE_CHOICE = [
         ('amritamayi','AMRITAMAYI'),
         ('anandamayi','ANANDAMAYI'),
