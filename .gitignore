@@ -11,8 +11,9 @@ venv/
 env/
 
 # =========================
-credentials.json
-# =========================
+amritkalotsavam-event-sheets-eca9896f4e57.json
+students/data/
+students/data/*.xlsx
 
 # =========================
 # Django
