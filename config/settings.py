@@ -28,10 +28,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 ALLOWED_HOSTS = ["65.2.97.207", "localhost", "127.0.0.1"]
 

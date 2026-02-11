@@ -8,3 +8,10 @@ class Student(models.Model):
 
     def __str__(self):
         return f"{self.roll_no} - {self.name}"
+
+class StudentImport(models.Model):
+    file = models.FileField(upload_to="temp_imports/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Import {self.id}"
