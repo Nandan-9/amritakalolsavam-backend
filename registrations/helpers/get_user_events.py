@@ -5,11 +5,13 @@ from ..models import EventRegistration
 
 def get_user_events(user):
 
-    registration = EventRegistration.objects.all().values(
-        "event",
-        "chest_number"
-
+    registrations = EventRegistration.objects.filter(
+        registered_by=user
+    ).values(
+        "event__id",
+        "event__name",
+        "event__venue",
+        "chest_number",
     )
-    if not registration:
-        return None
-    return list(registration)
+
+    return list(registrations)
