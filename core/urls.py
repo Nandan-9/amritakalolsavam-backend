@@ -6,7 +6,7 @@ from .views.user_details import UserDetails
 
 
 urlpatterns = [
-    path("healthcheck/", check_status_api, name="check_status_api"),
+    path("port/", check_status_api, name="check_status_api"),
     path("students/register/", user_register, name="user_register"),
     path("details/", UserDetails.as_view(), name="user_details"),
 

@@ -32,15 +32,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-dev-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "192.168.1.6",
-    "192.168.1.4",
-    "10.197.179.48",
-    "localhost",
-    "127.0.0.1",
-    "10.113.21.130",
-    "10.113.21.166",
-]
+ALLOWED_HOSTS = ["*"]
 
 
 CORS_ALLOWED_ORIGINS = [
