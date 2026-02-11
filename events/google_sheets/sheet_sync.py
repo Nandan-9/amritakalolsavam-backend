@@ -2,7 +2,9 @@ import gspread
 from google.oauth2.service_account import Credentials
 from django.http import JsonResponse
 from ..models import Event
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def sync_events_from_sheet(request):
     try:
@@ -10,11 +12,12 @@ def sync_events_from_sheet(request):
             "https://www.googleapis.com/auth/spreadsheets.readonly",
         ]
 
-        creds = Credentials.from_service_account_file(
-            "/home/das/pro/amritakalolsavam-backend/amritkalotsavam-event-sheets-eca9896f4e57.json",
-            scopes=scopes
-        )
+        cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/cred.json")
 
+        creds = Credentials.from_service_account_file(
+            cred_path,
+            scopes=scopes
+)
         client = gspread.authorize(creds)
 
         sheet = client.open_by_key(
