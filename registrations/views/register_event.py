@@ -24,27 +24,33 @@ class EventRegistrationView(APIView):
         if reg_type == "group":
             if event.participation_mode != Event.GROUP:
                 return Response({"error": "Not a group event"}, status=400)
-
+            
             if not roll_numbers:
                 return Response({"error": "Participants required"}, status=400)
 
             participants = []
+
+            count = len(roll_numbers)
+            if not (event.min_participants <= count <= event.max_participants):
+                     return Response({"error": f"Participants must be between "f"{event.min_participants} and {event.max_participants}"},status=400)
+            
             for uid in roll_numbers:
+
                 user = get_user_by_id(uid)
+                
                 if not can_user_register(user,event) :
                     return  Response({"error": f"User:{uid} not able to make more registrations"}, status=400)
+                
                 if not user:
                     return Response({"error": f"User {uid} not found"}, status=404)
+                
                 participants.append(user)
+
             if not validate_same_house(participants):
                 return Response(
                     {"error": "All participants must belong to the same house"},
-                    status=400
-            
+                    status=400       
     )
-
-            
-
         try:
             with transaction.atomic():
                 registration = EventRegistration.objects.create(
