@@ -21,7 +21,6 @@ class EventRegistrationView(APIView):
         if not can_user_register(leader,event) :
             return  Response({"error": "User not able to make more registrations"}, status=400)
         
-        # ---- validation ----
         if reg_type == "group":
             if event.participation_mode != Event.GROUP:
                 return Response({"error": "Not a group event"}, status=400)
@@ -41,6 +40,7 @@ class EventRegistrationView(APIView):
                 return Response(
                     {"error": "All participants must belong to the same house"},
                     status=400
+            
     )
 
             

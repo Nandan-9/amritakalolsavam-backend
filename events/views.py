@@ -20,6 +20,9 @@ def get_all_events(request):
         "event_time",
         "venue",
         "participation_mode",
+        "min_participants",
+        "max_participants"
+
     )
 
     return JsonResponse(
