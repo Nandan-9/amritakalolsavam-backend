@@ -29,7 +29,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 
-
 ALLOWED_HOSTS = [
     "apiamritakalotsavam.amrita.edu.in",
 ]
