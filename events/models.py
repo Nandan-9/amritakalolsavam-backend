@@ -30,6 +30,7 @@ class Event(models.Model):
         choices=MODE_CHOICES,
         default=SOLO
     )
+    
     min_participants = models.PositiveIntegerField(default=1)
     max_participants = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
