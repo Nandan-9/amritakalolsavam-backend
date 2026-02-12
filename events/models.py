@@ -19,7 +19,7 @@ class Event(models.Model):
     event_date = models.DateField(null=True, blank=True)
     event_time = models.TimeField(null=True, blank=True)
     venue = models.CharField(max_length=255, blank=True, default="")
-    prefix = models.CharField(max_length=5,unique=True,default="NILL")
+    prefix = models.CharField(max_length=10, null=True, blank=True)
     stage_type = models.CharField(
         max_length=3,
         choices=STAGE_CHOICES,
