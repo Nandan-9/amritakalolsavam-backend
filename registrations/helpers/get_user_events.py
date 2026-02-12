@@ -14,6 +14,7 @@ def get_user_events(user):
     )
 
     # Merge both (remove duplicates if user is both leader & participant)
+    
     all_regs = (leader_regs | participant_regs).distinct()
 
     return list(
