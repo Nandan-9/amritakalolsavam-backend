@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from ..permisions import IsRegistration
 from registrations.models import EventRegistration
-
+from core.models import User
 
 class ViewAllRegistrations(APIView):
     permission_classes = [IsAuthenticated, IsRegistration]
@@ -17,6 +17,7 @@ class ViewAllRegistrations(APIView):
             .all()
         )
 
+        
         data = []
 
         for reg in registrations:
@@ -33,7 +34,7 @@ class ViewAllRegistrations(APIView):
             data.append({
                 "registration_id": reg.id,
                 "event_id": reg.event.id,
-                # "event_type": reg.event.event_type,   # adjust field name if different
+                "event_name": reg.event.name,
                 "chest_number": reg.chest_number,
                 "registered_by": {
                     "id": reg.registered_by.id,
@@ -44,6 +45,7 @@ class ViewAllRegistrations(APIView):
             })
 
         return Response({
+
             "total_registrations": registrations.count(),
             "results": data
         })
