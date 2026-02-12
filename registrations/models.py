@@ -20,16 +20,21 @@ class EventRegistration(models.Model):
         related_name="group_registrations"
     )
     reg_time = models.DateTimeField(auto_now_add=True)
-    chest_number = models.CharField(max_length=10, unique=True)
+    chest_number = models.CharField(max_length=10)
 
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
+                fields=["event", "chest_number"],
+                name="unique_event_chest_number"
+            ),
+            models.UniqueConstraint(
                 fields=["event", "registered_by"],
                 name="unique_user_event_registration"
             )
         ]
+
 
 class GroupParticipants(models.Model):
     registration = models.ForeignKey(

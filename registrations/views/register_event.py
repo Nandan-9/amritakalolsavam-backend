@@ -8,6 +8,7 @@ from events.models import Event
 from ..validater import can_user_register
 from core.helper.get_user_by_id import get_user_by_id
 from students.helpers.get_students import validate_same_house
+from ..helpers.get_chestnumber import generate_chest_number
 
 class EventRegistrationView(APIView):
     permission_classes = [IsAuthenticated]
@@ -49,14 +50,16 @@ class EventRegistrationView(APIView):
             if not validate_same_house(participants):
                 return Response(
                     {"error": "All participants must belong to the same house"},
-                    status=400       
+                    status=400
+       
     )
         try:
             with transaction.atomic():
+                chest_number = generate_chest_number(event)
                 registration = EventRegistration.objects.create(
                     event=event,
                     registered_by=leader,
-                    chest_number=self.generate_chest_number(),
+                    chest_number=chest_number,
                 )
 
                 if reg_type == "group":
@@ -74,8 +77,3 @@ class EventRegistrationView(APIView):
             )
 
         return Response({"id": registration.id}, status=201)
-
-
-    def generate_chest_number(self):
-        last = EventRegistration.objects.order_by("-id").first()
-        return (last.id + 1) if last else 1001
