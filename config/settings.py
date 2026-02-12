@@ -23,32 +23,29 @@ IS_PROD = DJANGO_ENV == "production"
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-dev-key")
 
-# Since you're using HTTP locally
-SECURE_PROXY_SSL_HEADER = None
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
+
+
 
 ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "10.100.72.48",
-    "apiamritakalotsavam.amrita.edu.in",  # keep if you want domain access too
+    "apiamritakalotsavam.amrita.edu.in",
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://10.100.72.48:3000",
-    "http://localhost:3000",
+    "https://amritakalotsavam.amrita.edu.in",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://10.100.72.48:3000",
-    "http://localhost:3000",
+    "https://apiamritakalotsavam.amrita.edu.in",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
-# Since this is HTTP local dev:
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False
-
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 
 
@@ -114,23 +111,23 @@ AUTH_USER_MODEL = 'core.User'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST", "db"),  # 👈 important
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("POSTGRES_DB"),
+#         "USER": os.getenv("POSTGRES_USER"),
+#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+#         "HOST": os.getenv("POSTGRES_HOST", "db"),  # 👈 important
+#         "PORT": os.getenv("POSTGRES_PORT", "5432"),
+#     }
+# }
 
 
 
