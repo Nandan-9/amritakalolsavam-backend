@@ -36,6 +36,7 @@ def sync_events_from_sheet(request):
                     "name": row.get("Event_Name", "").strip(),
                     "description": row.get("Description", "") or "",
                     "event_date": row.get("event_date") or None,
+                    "prefix" : row.get("prefix") or "",
                     "event_time": row.get("event_time") or None,
                     "venue": row.get("venue", "") or "",
                     "stage_type": row.get("stage_type", "OFF_STAGE"),
