@@ -39,11 +39,11 @@ class EventRegistrationView(APIView):
 
                 user = get_user_by_id(uid)
                 
-                if not can_user_register(user,event) :
-                    return  Response({"error": f"User:{uid} not able to make more registrations"}, status=400)
-                
                 if not user:
                     return Response({"error": f"User {uid} not found"}, status=404)
+
+                if not can_user_register(user,event) :
+                    return  Response({"error": f"User:{uid} not able to make more registrations"}, status=400)
                 
                 participants.append(user)
 
