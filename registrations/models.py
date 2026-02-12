@@ -42,11 +42,20 @@ class GroupParticipants(models.Model):
         on_delete=models.CASCADE,
         related_name="participants"
     )
+    
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="group_participants"
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["registration", "user"],
+                name="unique_user_in_registration"
+            )
+        ]
 
 
 USER_EVENT_LIMITS = {

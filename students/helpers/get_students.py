@@ -12,9 +12,14 @@ def get_student_meta(roll_number):
     }
 
 def validate_same_house(users):
-    houses = {
-        user.student.house.lower()
-        for user in users
-        if hasattr(user, "student") and user.student
-    }
+    houses = set()
+
+    for user in users:
+        meta = get_student_meta(user.roll_number)
+
+        if not meta:
+            return False 
+
+        houses.add(meta["house"].strip().lower())
+
     return len(houses) == 1
