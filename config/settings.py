@@ -179,14 +179,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # settings.py
 
 if IS_PROD:
-    # ===== Production (HTTPS) =====
-    SESSION_COOKIE_SAMESITE = "None"
-    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_SECURE = False
 
-    CSRF_COOKIE_SAMESITE = "None"
-    CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_SAMESITE = "Lax"
+    CSRF_COOKIE_SECURE = False
 
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "http")
+
 else:
     # ===== Development (HTTP) =====
     SESSION_COOKIE_SAMESITE = "Lax"
