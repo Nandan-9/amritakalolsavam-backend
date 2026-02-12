@@ -12,8 +12,8 @@ def sync_events_from_sheet(request):
             "https://www.googleapis.com/auth/spreadsheets.readonly",
         ]
 
-        # cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/cred.json")
-        cred_path = "/home/das/pro/amritakalolsavam-backend/amritkalotsavam-event-sheets-eca9896f4e57.json"
+        cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/cred.json")
+        # cred_path = "/home/das/pro/amritakalolsavam-backend/amritkalotsavam-event-sheets-eca9896f4e57.json"
 
 
         creds = Credentials.from_service_account_file(
