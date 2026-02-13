@@ -92,7 +92,7 @@ def azure_callback(request):
         value=str(refresh),
         httponly=True,
         secure=True,
-        samesite="Lax",
+        samesite="None",
         domain=".amrita.edu.in"  # adjust if needed
     )
 

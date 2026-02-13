@@ -28,7 +28,7 @@ class LogoutView(APIView):
         response.delete_cookie(
             key="refresh_token",
             domain=".amrita.edu.in",
-            samesite="Lax",
+            samesite="None",
         )
 
         return response
