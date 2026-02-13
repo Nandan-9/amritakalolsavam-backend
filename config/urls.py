@@ -25,3 +25,4 @@ urlpatterns = [
     path('api/v1/auth/',include("auth.urls")),
     path('api/v1/accounts/',include("accounts.urls")),
 ]
+        
