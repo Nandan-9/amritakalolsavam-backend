@@ -23,12 +23,11 @@ def registrations_login(request):
                 "error" : "Email and password required"
             },status=400)
         
-        user_obj = User.objects.get(email=data['email'])
-        if not user_obj :
-            return JsonResponse(
-                {"error": "Invalid credentials"},
-                status=401
-            )
+        try:
+            user_obj = User.objects.get(email=data['email'])
+        except User.DoesNotExist:
+            return JsonResponse({"error": "Invalid credentials"}, status=401)
+        
         user = authenticate(
             request,
             username=user_obj.username,
@@ -41,6 +40,7 @@ def registrations_login(request):
                 status=401
             )
         refresh = RefreshToken.for_user(user)
+        refresh["role"] = user.role
         return JsonResponse(
             {
                 "access": str(refresh.access_token),
