@@ -25,7 +25,7 @@ class ViewAllRegistrations(APIView):
                 {
                     "id": p.user.id,
                     "roll_number": p.user.roll_number,
-                    "name": p.user.get_full_name(),
+                    "name": p.user.username,
                     "house": p.user.house,
                 }
                 for p in reg.participants.all()
