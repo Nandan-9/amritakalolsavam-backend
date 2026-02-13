@@ -13,6 +13,7 @@ google-auth-oauthlib==1.2.4
 gspread==6.2.1
 idna==3.11
 markupsafe==3.0.3
+msal==1.34.0
 numpy==2.4.2
 oauthlib==3.3.1
 openpyxl==3.1.5
@@ -33,5 +34,3 @@ six==1.17.0
 sqlparse==0.5.5
 urllib3==2.6.3
 werkzeug==3.1.5
-gunicorn
-psycopg2-binary
