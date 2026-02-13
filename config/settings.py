@@ -54,7 +54,7 @@ AZURE_TENANT_ID = os.getenv("AZURE_TENANT_ID")
 
 AZURE_AUTHORITY = f"https://login.microsoftonline.com/{AZURE_TENANT_ID}"
 
-AZURE_REDIRECT_URI = "https://api.yourdomain.com/auth/azure/callback/"
+AZURE_REDIRECT_URI = "https://apiamritakalotsavam.amrita.edu.in/api/v1/auth/azure/callback/"
 
 # Application definition
 
