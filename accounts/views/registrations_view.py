@@ -35,11 +35,12 @@ class ViewAllRegistrations(APIView):
                 "registration_id": reg.id,
                 "event_id": reg.event.id,
                 "event_name": reg.event.name,
+                "participation_mode": reg.event.participation_mode,
                 "chest_number": reg.chest_number,
                 "registered_by": {
                     "id": reg.registered_by.id,
                     "roll_number": reg.registered_by.roll_number,
-                    "name": reg.registered_by.get_full_name(),
+                    "name": reg.registered_by.username,
                 },
                 "participants": participants
             })
