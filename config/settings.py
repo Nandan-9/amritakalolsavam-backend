@@ -58,6 +58,12 @@ AZURE_REDIRECT_URI = "https://apiamritakalotsavam.amrita.edu.in/api/v1/auth/azur
 
 # Application definition
 
+SIMPLE_JWT = {
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+}
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -65,6 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "rest_framework_simplejwt.token_blacklist",
         "rest_framework",
 
         "corsheaders",
