@@ -7,7 +7,7 @@ from django.conf import settings
 
 
 class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
     def post(self, request):
         refresh_token = request.COOKIES.get("refresh_token")
