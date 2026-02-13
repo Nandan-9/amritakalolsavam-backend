@@ -14,12 +14,7 @@ class ViewUsersDetails(APIView):
         users = (
             User.objects
             .annotate(
-                registered_count=Count("group_registrations", distinct=True),
                 participant_count=Count("group_participants", distinct=True),
-            )
-            .annotate(
-                        total_events=Count("group_registrations__event",distinct=True) + Count("group_participants__registration__event",distinct=True
-        )
             )
             .values(
                 "id",
@@ -27,9 +22,7 @@ class ViewUsersDetails(APIView):
                 "email",
                 "roll_number",
                 "house",
-                "registered_count",
                 "participant_count",
-                "total_events"
             )
         )
 

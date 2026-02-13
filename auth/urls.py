@@ -6,7 +6,7 @@ from .azure.callback import azure_callback
 from .azure.logout import LogoutView
 from .token.refresh_token import CookieTokenRefreshView
 urlpatterns = [
-    path("login/",user_login, name="user_login"),
+    # path("login/",user_login, name="user_login"),
     path("token/refresh/", CookieTokenRefreshView.as_view()),
     path("azure/login/",azure_login, name="azure_login"),
     path("azure/callback/",azure_callback, name="azure_callback"),
