@@ -46,8 +46,15 @@ def azure_callback(request):
         return JsonResponse({"error": "Unauthorized email domain"}, status=403)
 
     # Extract roll number
-    roll_number = email.split("@")[0].upper()
+    raw_roll = email.split("@")[0].upper()
 
+    # Insert dots after AM and HS
+    if raw_roll.startswith("AMHS"):
+        roll_number = f"AM.HS.{raw_roll[4:]}"
+    else:
+        roll_number = raw_roll
+
+    
     # Validate student internally
     student = get_student_meta(roll_number)
 
