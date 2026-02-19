@@ -30,7 +30,7 @@ class EventSpotRegistrationView(APIView):
                 status=400
             )
 
-        if not can_user_register(registered_by, event):
+        if not can_user_register(leader, event):
             return Response(
                 {"error": "User not able to make more registrations"},
                 status=400
