@@ -6,8 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 
 dependencies = [
+    "boto3>=1.42.51",
     "django>=5.0,<6.0",
     "django-cors-headers>=4.9.0",
+    "django-storages>=1.14.6",
     "djangorestframework>=3.16.1",
     "djangorestframework-simplejwt>=5.5.1",
     "google-auth>=2.48.0",
@@ -17,5 +19,6 @@ dependencies = [
     "pandas>=3.0.0",
     "psycopg2-binary>=2.9.11",
     "python-dotenv>=1.2.1",
+    "python-slugify>=8.0.4",
     "sendgrid>=6.12.5",
 ]

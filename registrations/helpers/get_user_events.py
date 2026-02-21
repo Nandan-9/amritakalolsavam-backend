@@ -28,3 +28,25 @@ def get_user_events(user):
             "registered_by__username",
         )
     )
+
+def has_user_registered(user,event):
+    leader_regs = EventRegistration.objects.filter(
+        registered_by=user,
+        event=event
+    )
+
+    # Registrations where user is participant
+    participant_regs = EventRegistration.objects.filter(
+        participants__user=user,
+        event=event
+
+    )
+
+    # Merge both (remove duplicates if user is both leader & participant)
+    
+    all_regs = (leader_regs | participant_regs).distinct()
+
+    if not all_regs :
+        return False
+    else :
+        return True

@@ -9,6 +9,4 @@ urlpatterns = [
     path("<int:event_id>/registrations/",EventRegistrationView.as_view(),name="event-registrations"),
     path("<int:event_id>/spot/",EventSpotRegistrationView.as_view(),name="spot-event-registrations"),
     path("update/", sync_events_from_sheet, name="sync_events_from_sheet"),
-
-
 ]

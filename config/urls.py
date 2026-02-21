@@ -24,5 +24,7 @@ urlpatterns = [
     path('api/v1/registration/',include("registrations.urls")),
     path('api/v1/auth/',include("auth.urls")),
     path('api/v1/accounts/',include("accounts.urls")),
+    path('api/v1/certificates/',include("certificate.urls")),
+
 ]
         

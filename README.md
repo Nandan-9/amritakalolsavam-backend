@@ -7,11 +7,16 @@
 
 {
   "type" : "group",
+  "registered_by" : "rollnumber"
   "participants" : {
     "AM.EN.U4SIE22101",
     "AM.EN.U4CSE22104",
     "AM.EN.U4SIE22009"
   }
+}
+{
+    "email" : "am.en.u4cse22322@am.students.amrita.edu",
+    "password" : "StrongPass@123"
 }
 
 
